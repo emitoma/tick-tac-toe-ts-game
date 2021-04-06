@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC, useEffect} from "react";
 //
 import Square from "./Square";
 //
@@ -10,18 +10,32 @@ interface Props {
 }
 
 const Board: FC<Props> = ({gameSize}) => {
-    const boardArray = [];
+    console.log("board", gameSize)
+    const [boardArray, setBoarArray] = React.useState<string[][]>([]);
 
-    for (let i = 0; i < gameSize; i++) {
-        const innerArray = []
-        for (let i = 0; i < gameSize; i++) {
-            innerArray.push("");
-        }
-        boardArray.push(innerArray)
-    }
+    useEffect(() => {
+            const tempArray: string[][] = [];
+            for (let i = 0; i < gameSize; i++) {
+                const innerArray: string[] = []
+                for (let j = 0; j < gameSize; j++) {
+                    innerArray.push("");
+                }
+                tempArray.push(innerArray)
+            }
+            setBoarArray(tempArray);
+        }, []
+    )
+
+
     return <div className={css["board"]}>
-        {boardArray.map(item => {
-            return <div className={css['row']}>{item.map(innerItem => <Square/>)}</div>
+        {boardArray.map((item, index) => {
+
+            return <div className={css['column']}>
+
+                {item.map((innerItem, innerIndex) =>
+                    <Square id={String(index) + String(innerIndex)}/>
+                )}
+            </div>
         })}
     </div>
 }

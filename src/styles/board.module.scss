@@ -1,4 +1,9 @@
 .board {
-  display: flex;
+  width: 50vw;
+  max-height: 50vh;
+  display: grid;
 
+  .column {
+    grid-row-start: 1;
+  }
 }

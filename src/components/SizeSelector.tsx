@@ -8,7 +8,7 @@ interface Props {
     };
 }
 
-const SelectSize: FC<Props> = ({name, sizes, changeHandler}) => {
+const SizeSelector: FC<Props> = ({name, sizes, changeHandler}) => {
 
     return (
         <div>
@@ -26,4 +26,4 @@ const SelectSize: FC<Props> = ({name, sizes, changeHandler}) => {
 
     );
 };
-export default SelectSize;
+export default SizeSelector;
