@@ -1,10 +1,13 @@
-import './App.scss';
 import Board from "./components/Board";
+//
+import './App.scss';
+import Game from "./Game";
 
 function App() {
+
     return (
         <div className="App">
-            <Board/>
+            <Game/>
         </div>
     );
 }
