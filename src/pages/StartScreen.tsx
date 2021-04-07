@@ -67,7 +67,8 @@ const StartScreen: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGame
         } else {
             setErrorMessage("")
             setIsGameStarted(true);
-
+            localStorage.setItem("gameData", JSON.stringify(gameData));
+            localStorage.setItem("isGameStarted", "true")
         }
     }
 

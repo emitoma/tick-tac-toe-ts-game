@@ -3,15 +3,22 @@ import React, {FC, useEffect} from "react";
 import Square from "./Square";
 //
 import css from '../styles/board.module.scss'
+import Player from "../types/Player";
 
 
 interface Props {
     gameSize: number;
+    starterPlayer: Player | null,
+    otherPlayer: Player | null,
 }
 
-const Board: FC<Props> = ({gameSize}) => {
-    console.log("board", gameSize)
+const Board: FC<Props> = ({gameSize, starterPlayer, otherPlayer}) => {
     const [boardArray, setBoarArray] = React.useState<string[][]>([]);
+
+    const [activePlayer, setActivePlayer] = React.useState<Player | null>(starterPlayer);
+
+
+
 
     useEffect(() => {
             const tempArray: string[][] = [];
@@ -32,8 +39,10 @@ const Board: FC<Props> = ({gameSize}) => {
 
             return <div className={css['column']}>
 
-                {item.map((innerItem, innerIndex) =>
-                    <Square id={String(index) + String(innerIndex)}/>
+                {item.map((innerItem, innerIndex) => {
+                        const id = String(index) + String(innerIndex);
+                        return <Square key={id} id={id}/>
+                    }
                 )}
             </div>
         })}

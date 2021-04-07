@@ -26,7 +26,7 @@ function App() {
         <Router>
             <Switch>
                 <Route path="/game">
-                    <Game gameData={gameData} setGameData={setGameData} isGameStarted={isGameStarted}/>
+                    <Game gameData={gameData} isGameStarted={isGameStarted} setIsGameStarted={setIsGameStarted}/>
                 </Route>
                 <Route path='/'>
                     <StartScreen gameData={gameData} setGameData={setGameData} isGameStarted={isGameStarted} setIsGameStarted={setIsGameStarted}/>

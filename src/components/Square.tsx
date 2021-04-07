@@ -8,7 +8,7 @@ interface Props {
 
 const Square: FC<Props> = ({id}) => {
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-console.log((e.target as Element).id)
+        console.log((e.target as Element).id)
     }
 
 
