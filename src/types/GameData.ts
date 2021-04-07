@@ -1,10 +1,6 @@
 interface GameData {
-    players: {
-        player1: string,
-        player2: string,
-    },
-    gameSize: number,
-
+  players: { [playerNumber: number]: string };
+  gameSize: number;
 }
 
 export default GameData;

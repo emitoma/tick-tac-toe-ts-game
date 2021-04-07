@@ -1,6 +1,6 @@
 interface Player {
-    name: string,
-    mark: string,
+  name: string;
+  mark: string;
 }
 
 export default Player;

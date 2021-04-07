@@ -1,87 +1,83 @@
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useEffect, useState } from "react";
 import Board from "../components/Board";
 import GameData from "../types/GameData";
 import Player from "../types/Player";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { playerConfig } from "../playerConfig";
 
 interface Props {
-    gameData: GameData,
-    setGameData: React.Dispatch<React.SetStateAction<GameData>>
-    isGameStarted: boolean
-    setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
+  gameData: GameData;
+  setGameData: React.Dispatch<React.SetStateAction<GameData>>;
+  isGameStarted: boolean;
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Game: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGameStarted}) => {
+const Game: FC<Props> = ({
+  gameData,
+  setGameData,
+  isGameStarted,
+  setIsGameStarted,
+}) => {
+  const [activePlayer, setActivePlayer] = React.useState<number>();
 
-    const [starterPlayer, setStarterPlayer] = React.useState<Player | null>(null);
-    const [otherPlayer, setOtherPlayer] = React.useState<Player | null>(null);
+  const playerPicker = () => {
+    const randomNumber = Math.floor(Math.random() * 10);
 
-    const playerPicker = () => {
-        setStarterPlayer(null);
-        setOtherPlayer(null);
-
-        const randomNumber = Math.floor(Math.random() * 10);
-
-        if (randomNumber % 2 === 0) {
-            setStarterPlayer({
-                name: gameData.players.player1,
-                mark: "❌",
-            });
-            setOtherPlayer({
-                name: gameData.players.player2,
-                mark: "⭕ "
-            })
-            // localStorage.setItem("starterPlayer", JSON.stringify(starterPlayer))
-
-        } else {
-            setStarterPlayer({
-                name: gameData.players.player2,
-                mark: "❌",
-            });
-            setOtherPlayer({
-                name: gameData.players.player1,
-                mark: "⭕ "
-            })
-            // localStorage.setItem("otherPlayer", JSON.stringify(otherPlayer))
-
-        }
-
+    if (randomNumber % 2 === 0) {
+      setActivePlayer(1);
+    } else {
+      setActivePlayer(2);
     }
-    useEffect(() => {
-        playerPicker()
-    }, []);
+  };
+  useEffect(() => {
+    playerPicker();
+  }, []);
 
-    useEffect(() => {
-        const gameStarted = localStorage.getItem("isGameStarted");
-        gameStarted === "true" ? setIsGameStarted(true) : setIsGameStarted(false);
+  useEffect(() => {
+    localStorage.setItem("activePlayer", JSON.stringify(activePlayer));
+  }, [activePlayer]);
 
-        const game = JSON.parse(localStorage.getItem("gameData") || "");
-        // const starter = JSON.parse(localStorage.getItem("starterPlayer") || "");
-        // const other = JSON.parse(localStorage.getItem("otherPlayer") || "");
+  useEffect(() => {
+    const gameStarted = localStorage.getItem("isGameStarted");
+    gameStarted === "true" ? setIsGameStarted(true) : setIsGameStarted(false);
 
-        if (game !== null || game !== "") {
-            setGameData(game)
-        }
-      /*  if (starter !== null || starter !== "") {
-            setStarterPlayer(starter);
-        }
-        if (other !== null || other !== "") {
-            setOtherPlayer(other);
-        }*/
-    }, [])
+    const game = JSON.parse(localStorage.getItem("gameData") || "");
 
-    if (!isGameStarted) {
-        return <Redirect to="/"/>
+    if (game !== null || game !== "") {
+      setGameData(game);
     }
+  }, []);
 
-    return (<>
-            {starterPlayer && <div>
-                <h2>You move first: {starterPlayer.name}</h2>
-                <p>Your mark is: {starterPlayer.mark}</p>
-            </div>}
-            <Board gameSize={gameData.gameSize} starterPlayer={starterPlayer} otherPlayer={otherPlayer}/>
-        </>
-    )
-}
+  if (!isGameStarted) {
+    return <Redirect to="/" />;
+  }
+
+  if (!activePlayer) {
+    return <h3>Loading...</h3>;
+  }
+
+  const activePlayerName = gameData.players[activePlayer];
+  const activePlayerMark = playerConfig[activePlayer];
+
+  return (
+    <>
+      <div>
+        <h2>You move first: {activePlayerName}</h2>
+        <p>Your mark is: {activePlayerMark}</p>
+      </div>
+      <Board
+        gameSize={gameData.gameSize}
+        activePlayer={activePlayer}
+        switchPlayer={() => {
+          if (activePlayer === 1) {
+            setActivePlayer(2);
+          } else {
+            setActivePlayer(1);
+          }
+        }}
+      />
+    </>
+  );
+};
 
 export default Game;
