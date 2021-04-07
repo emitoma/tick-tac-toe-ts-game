@@ -6,11 +6,12 @@ import {Redirect} from "react-router-dom";
 
 interface Props {
     gameData: GameData,
+    setGameData: React.Dispatch<React.SetStateAction<GameData>>
     isGameStarted: boolean
     setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Game: FC<Props> = ({gameData, isGameStarted, setIsGameStarted}) => {
+const Game: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGameStarted}) => {
 
     const [starterPlayer, setStarterPlayer] = React.useState<Player | null>(null);
     const [otherPlayer, setOtherPlayer] = React.useState<Player | null>(null);
@@ -20,36 +21,53 @@ const Game: FC<Props> = ({gameData, isGameStarted, setIsGameStarted}) => {
         setOtherPlayer(null);
 
         const randomNumber = Math.floor(Math.random() * 10);
-        console.log("randomNumber", randomNumber);
 
         if (randomNumber % 2 === 0) {
             setStarterPlayer({
                 name: gameData.players.player1,
-                mark: "X",
+                mark: "❌",
             });
             setOtherPlayer({
                 name: gameData.players.player2,
-                mark: "O"
+                mark: "⭕ "
             })
+            // localStorage.setItem("starterPlayer", JSON.stringify(starterPlayer))
+
         } else {
             setStarterPlayer({
                 name: gameData.players.player2,
-                mark: "X",
+                mark: "❌",
             });
             setOtherPlayer({
                 name: gameData.players.player1,
-                mark: "O"
+                mark: "⭕ "
             })
+            // localStorage.setItem("otherPlayer", JSON.stringify(otherPlayer))
+
         }
 
     }
-    useEffect(() => playerPicker(), []);
+    useEffect(() => {
+        playerPicker()
+    }, []);
 
     useEffect(() => {
         const gameStarted = localStorage.getItem("isGameStarted");
         gameStarted === "true" ? setIsGameStarted(true) : setIsGameStarted(false);
-        // const game = JSON.parse(localStorage.getItem("gameData"));
-        // console.log(game, "from local storage")
+
+        const game = JSON.parse(localStorage.getItem("gameData") || "");
+        // const starter = JSON.parse(localStorage.getItem("starterPlayer") || "");
+        // const other = JSON.parse(localStorage.getItem("otherPlayer") || "");
+
+        if (game !== null || game !== "") {
+            setGameData(game)
+        }
+      /*  if (starter !== null || starter !== "") {
+            setStarterPlayer(starter);
+        }
+        if (other !== null || other !== "") {
+            setOtherPlayer(other);
+        }*/
     }, [])
 
     if (!isGameStarted) {

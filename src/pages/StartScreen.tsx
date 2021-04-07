@@ -28,13 +28,11 @@ const StartScreen: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGame
 
     const handleSizeSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const valueAsNumber = Number(e.target.value)
-        console.log(valueAsNumber)
         setGameData(prevState => ({
                 ...prevState,
                 gameSize: valueAsNumber,
             })
         );
-        console.log(gameData)
     }
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
@@ -48,14 +46,12 @@ const StartScreen: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGame
                 [name]: value,
             }
         })
-        console.log(gameData)
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setErrorMessage("")
 
-        console.log(gameData, "submit")
 
 
         if (gameData.players.player1.length === 0 || gameData.players.player2.length === 0) {
