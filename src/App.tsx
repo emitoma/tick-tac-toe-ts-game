@@ -19,15 +19,17 @@ function App() {
         },
         gameSize: 0,
     });
+    const [isGameStarted, setIsGameStarted] = useState(false);
+
 
     return (
         <Router>
             <Switch>
                 <Route path="/game">
-                    <Game gameData={gameData} setGameData={setGameData}/>
+                    <Game gameData={gameData} setGameData={setGameData} isGameStarted={isGameStarted}/>
                 </Route>
                 <Route path='/'>
-                    <StartScreen gameData={gameData} setGameData={setGameData}/>
+                    <StartScreen gameData={gameData} setGameData={setGameData} isGameStarted={isGameStarted} setIsGameStarted={setIsGameStarted}/>
                 </Route>
             </Switch>
         </Router>

@@ -6,12 +6,14 @@ import GameData from "../types/GameData";
 interface Props {
     gameData: GameData,
     setGameData: React.Dispatch<React.SetStateAction<GameData>>;
+    isGameStarted: boolean,
+    setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const StartScreen: FC<Props> = ({gameData, setGameData}
+const StartScreen: FC<Props> = ({gameData, setGameData, isGameStarted, setIsGameStarted}
 ) => {
 
-    const [isGameStarted, setIsGameStarted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const possibleGameSize = Object.freeze({
         3: "3x3",
@@ -37,17 +39,36 @@ const StartScreen: FC<Props> = ({gameData, setGameData}
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
         const {name, value} = event.currentTarget;
-        setGameData(prevState => ({
-            ...prevState,
-            [name]: value,
-        }))
+
+
+        setGameData({
+            ...gameData,
+            players: {
+                ...gameData.players,
+                [name]: value,
+            }
+        })
         console.log(gameData)
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+        setErrorMessage("")
+
         console.log(gameData, "submit")
-        setIsGameStarted(true);
+
+
+        if (gameData.players.player1.length === 0 || gameData.players.player2.length === 0) {
+            setErrorMessage("Can't leave player name blank!");
+            return;
+        } else if (gameData.gameSize === 0) {
+            setErrorMessage("Choose a game size!");
+            return;
+        } else {
+            setErrorMessage("")
+            setIsGameStarted(true);
+
+        }
     }
 
     if (isGameStarted) {
@@ -55,6 +76,7 @@ const StartScreen: FC<Props> = ({gameData, setGameData}
     }
 
     return <>
+        {errorMessage && <h3>{errorMessage}</h3>}
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="name">Player 1</label>
