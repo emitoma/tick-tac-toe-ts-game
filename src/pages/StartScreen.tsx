@@ -1,7 +1,10 @@
 import React, { FC, useState } from "react";
 import { Redirect } from "react-router-dom";
+//
 import SizeSelector from "../components/SizeSelector";
 import GameData from "../types/GameData";
+//
+import css from "../styles/form.module.scss";
 
 interface Props {
   gameData: GameData;
@@ -74,18 +77,13 @@ const StartScreen: FC<Props> = ({
     <>
       {errorMessage && <h3>{errorMessage}</h3>}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={css[""]}>
           <label htmlFor="name">Player 1</label>
           <input type="text" name="1" id="name" onChange={handleChange} />
         </div>
         <div>
           <label htmlFor="name2">Player 2</label>
-          <input
-            type="text"
-            name="2"
-            id="name2"
-            onChange={handleChange}
-          />
+          <input type="text" name="2" id="name2" onChange={handleChange} />
         </div>
         <SizeSelector
           sizes={possibleGameSize}
