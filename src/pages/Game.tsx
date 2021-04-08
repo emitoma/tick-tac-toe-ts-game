@@ -59,7 +59,7 @@ const Game: FC<Props> = ({
   useEffect(() => saveWinner(), [winner]);
 
   if (!isGameStarted) {
-    return <Redirect to="/start" />;
+    return <Redirect to="/" />;
   }
 
   if (!activePlayer || !winningMatrix) {

@@ -65,7 +65,7 @@ const Scoreboard = () => {
         </tbody>
       </table>
       <div className={css["button-container"]}>
-        <Link to="/start">
+        <Link to="/">
           <button type="button" onClick={clearStorage}>
             New game
           </button>{" "}
