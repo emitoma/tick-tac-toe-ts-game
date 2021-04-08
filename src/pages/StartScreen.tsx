@@ -66,7 +66,7 @@ const StartScreen: FC<Props> = ({
       setErrorMessage("Can't leave player name blank!");
       return;
     } else if (gameData.gameSize === 0 || gameData.winnerNum === 0) {
-      setErrorMessage("Choose a game size!");
+      setErrorMessage("Choose a game size/ minimum number to win!");
       return;
     } else {
       setErrorMessage("");
@@ -93,12 +93,14 @@ const StartScreen: FC<Props> = ({
           <input type="text" name="2" id="name2" onChange={handleChange} />
         </div>
         <SizeSelector
+          labelText={"Choose a game szize"}
           className={css["start-form-input"]}
           sizes={possibleGameSize}
           name="gameSize"
           changeHandler={handleSizeSelect}
         />
         <SizeSelector
+          labelText={"Choose a minimum number to win"}
           className={css["start-form-input"]}
           sizes={possibleWinnerNum}
           name="winnerNum"

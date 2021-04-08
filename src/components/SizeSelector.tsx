@@ -5,6 +5,7 @@ import css from "../styles/select.module.scss";
 import classNames from "classnames";
 
 interface Props {
+  labelText: string;
   name: string;
   changeHandler: React.ChangeEventHandler<HTMLSelectElement>;
   sizes: {
@@ -13,11 +14,17 @@ interface Props {
   className: string;
 }
 
-const SizeSelector: FC<Props> = ({ name, sizes, changeHandler, className }) => {
+const SizeSelector: FC<Props> = ({
+  labelText,
+  name,
+  sizes,
+  changeHandler,
+  className,
+}) => {
   return (
     <div className={classNames(className, css["select"])}>
       <label htmlFor={name} className={css["select-label"]}>
-        Select game size
+        {labelText}
       </label>
       <select
         className={css["select-select"]}

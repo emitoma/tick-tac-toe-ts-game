@@ -27,7 +27,9 @@ const Game: FC<Props> = ({
   const [activePlayer, setActivePlayer] = React.useState<number>(pickPlayer);
   const winningMatrix = React.useMemo(() => {
     return generateMatrix(gameData.gameSize, gameData.winnerNum);
+    // eslint-disable-next-line
   }, []);
+
   const [winner, setWinner] = React.useState<number | null>(null);
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -44,6 +46,7 @@ const Game: FC<Props> = ({
     if (game !== null || game !== "") {
       setGameData(game);
     }
+    // eslint-disable-next-line
   }, []);
 
   const saveWinner = () => {
@@ -52,6 +55,7 @@ const Game: FC<Props> = ({
       `${gameData.players[activePlayer]}_${activePlayer}`
     );
   };
+  // eslint-disable-next-line
   useEffect(() => saveWinner(), [winner]);
 
   if (!isGameStarted) {
@@ -84,6 +88,9 @@ const Game: FC<Props> = ({
         </div>
       ) : (
         <>
+          <h1 className={css["animated-text"]}>
+            You start the game: {activePlayerName} ({activePlayerMark})
+          </h1>
           <div className={css["game-stats"]}>
             <h2>You move next: {activePlayerName}</h2>
             <p>Your mark is: {activePlayerMark}</p>

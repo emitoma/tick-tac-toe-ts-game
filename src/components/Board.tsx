@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 //
 import Square from "./Square";
 //
@@ -75,6 +75,7 @@ const Board: FC<Props> = ({
       console.log(status);
       switchPlayer();
     }
+    // eslint-disable-next-line
   }, [boardArray]);
 
   return (
