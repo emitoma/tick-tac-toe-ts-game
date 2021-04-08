@@ -5,6 +5,7 @@ import SizeSelector from "../components/SizeSelector";
 import GameData from "../types/GameData";
 //
 import css from "../styles/form.module.scss";
+import "../styles/button.module.scss";
 
 interface Props {
   gameData: GameData;
@@ -74,25 +75,34 @@ const StartScreen: FC<Props> = ({
   }
 
   return (
-    <>
-      {errorMessage && <h3>{errorMessage}</h3>}
-      <form onSubmit={handleSubmit}>
-        <div className={css[""]}>
+    <main>
+      <form className={css["start-form"]} onSubmit={handleSubmit}>
+        {errorMessage && <h3 className={css["error"]}>{errorMessage}</h3>}
+        <div className={css["start-form-input"]}>
           <label htmlFor="name">Player 1</label>
           <input type="text" name="1" id="name" onChange={handleChange} />
         </div>
-        <div>
+        <div className={css["start-form-input"]}>
           <label htmlFor="name2">Player 2</label>
           <input type="text" name="2" id="name2" onChange={handleChange} />
         </div>
         <SizeSelector
+          className={css["start-form-input"]}
           sizes={possibleGameSize}
           name="size"
           changeHandler={handleSizeSelect}
         />
-        <button type="submit">Start Game!</button>
+        {/*<SizeSelector*/}
+        {/*  className={css["start-form-input"]}*/}
+        {/*  sizes={possibleGameSize}*/}
+        {/*  name="size"*/}
+        {/*  changeHandler={handleSizeSelect}*/}
+        {/*/>*/}
+        <button className={css["start-form-submit"]} type="submit">
+          Start Game!
+        </button>
       </form>
-    </>
+    </main>
   );
 };
 export default StartScreen;

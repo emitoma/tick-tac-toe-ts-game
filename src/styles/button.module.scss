@@ -1,0 +1,9 @@
+@import "variables";
+
+button {
+  width: 10rem;
+  height: 2rem;
+  background: $color_light_blue;
+  border: none;
+  border-radius: 5px;
+}

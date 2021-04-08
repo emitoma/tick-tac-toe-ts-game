@@ -67,7 +67,7 @@ const Board: FC<Props> = ({
     <div className={css["board"]}>
       {boardArray.map((row, rowIndex) => {
         return (
-          <div className={css["row"]}>
+          <div key={`${rowIndex}_${row}`} className={css["row"]}>
             {row.map((col, colIndex) => {
               return (
                 <Square

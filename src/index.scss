@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=New+Tegomin&family=Roboto&display=swap");
-
+@import "./styles/variables";
 * {
   box-sizing: border-box;
   padding: 0;
@@ -12,6 +12,7 @@ body {
   height: 100vh;
   width: 90%;
   margin: 50px auto;
+  background: $color_light_grey;
 }
 
 h1,

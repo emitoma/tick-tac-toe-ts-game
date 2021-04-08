@@ -1,0 +1,13 @@
+@import "variables";
+
+.select {
+  &-label {
+    min-width: 50%;
+  }
+  &-select {
+    width: 10rem;
+    height: 2rem;
+    border: 1px solid $color_light_blue;
+    border-radius: 5px;
+  }
+}

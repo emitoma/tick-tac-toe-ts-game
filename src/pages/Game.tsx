@@ -7,6 +7,8 @@ import GameData from "../types/GameData";
 import { playerConfig } from "../playerConfig";
 import { generateMatrix } from "../utils/statusCalculator";
 import { pickPlayer } from "../utils/pickPlayer";
+//
+import "../styles/button.module.scss";
 
 interface Props {
   gameData: GameData;
