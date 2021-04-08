@@ -71,7 +71,7 @@ const Board: FC<Props> = ({
             {row.map((col, colIndex) => {
               return (
                 <Square
-                  className={css["square"]}
+                  className={css[`squareNum-${gameData.gameSize}`]}
                   key={`${colIndex}_${col}`}
                   handleClick={() => {
                     setSquare(rowIndex, colIndex);

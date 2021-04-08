@@ -14,6 +14,7 @@ function App() {
       2: "",
     },
     gameSize: 0,
+    winnerNum: 0,
   });
   const [isGameStarted, setIsGameStarted] = useState(false);
 

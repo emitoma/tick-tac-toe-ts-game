@@ -1,7 +1,7 @@
 import GameStatus from "../types/GameStatus";
 import { playerConfig } from "../playerConfig";
 
-export const generateMatrix = (size: number, numToWin: number = 3) => {
+export const generateMatrix = (size: number, numToWin: number) => {
   const winnerMatrix = [];
   for (let i = 0; i < size; i++) {
     const winnerCases = [];

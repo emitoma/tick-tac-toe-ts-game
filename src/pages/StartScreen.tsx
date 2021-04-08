@@ -32,11 +32,17 @@ const StartScreen: FC<Props> = ({
     9: "9x9",
   });
 
+  const possibleWinnerNum = Object.freeze({
+    3: "3",
+    4: "4",
+  });
+
   const handleSizeSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const valueAsNumber = Number(e.target.value);
+    const name = e.target.name;
     setGameData((prevState) => ({
       ...prevState,
-      gameSize: valueAsNumber,
+      [name]: valueAsNumber,
     }));
   };
 
@@ -59,7 +65,7 @@ const StartScreen: FC<Props> = ({
     if (gameData.players[1].length === 0 || gameData.players[2].length === 0) {
       setErrorMessage("Can't leave player name blank!");
       return;
-    } else if (gameData.gameSize === 0) {
+    } else if (gameData.gameSize === 0 || gameData.winnerNum === 0) {
       setErrorMessage("Choose a game size!");
       return;
     } else {
@@ -89,15 +95,15 @@ const StartScreen: FC<Props> = ({
         <SizeSelector
           className={css["start-form-input"]}
           sizes={possibleGameSize}
-          name="size"
+          name="gameSize"
           changeHandler={handleSizeSelect}
         />
-        {/*<SizeSelector*/}
-        {/*  className={css["start-form-input"]}*/}
-        {/*  sizes={possibleGameSize}*/}
-        {/*  name="size"*/}
-        {/*  changeHandler={handleSizeSelect}*/}
-        {/*/>*/}
+        <SizeSelector
+          className={css["start-form-input"]}
+          sizes={possibleWinnerNum}
+          name="winnerNum"
+          changeHandler={handleSizeSelect}
+        />
         <button className={css["start-form-submit"]} type="submit">
           Start Game!
         </button>

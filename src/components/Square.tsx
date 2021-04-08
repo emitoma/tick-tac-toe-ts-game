@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 //
-import css from "../styles/square.module.scss";
 import classNames from "classnames";
+import css from "../styles/square.module.scss";
 
 interface Props {
   handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -9,9 +9,9 @@ interface Props {
   className: string;
 }
 
-const Square: FC<Props> = ({ handleClick, squareValue, className }) => {
+const Square: FC<Props> = ({ className, handleClick, squareValue }) => {
   return (
-    <div className={classNames(css["square"], className)} onClick={handleClick}>
+    <div className={classNames(className, css["square"])} onClick={handleClick}>
       {squareValue}
     </div>
   );

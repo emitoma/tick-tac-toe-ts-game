@@ -8,6 +8,7 @@ import { playerConfig } from "../playerConfig";
 import { generateMatrix } from "../utils/statusCalculator";
 import { pickPlayer } from "../utils/pickPlayer";
 //
+import css from "../styles/game.module.scss";
 import "../styles/button.module.scss";
 
 interface Props {
@@ -25,7 +26,7 @@ const Game: FC<Props> = ({
 }) => {
   const [activePlayer, setActivePlayer] = React.useState<number>(pickPlayer);
   const winningMatrix = React.useMemo(() => {
-    return generateMatrix(gameData.gameSize);
+    return generateMatrix(gameData.gameSize, gameData.winnerNum);
   }, []);
   const [winner, setWinner] = React.useState<number | null>(null);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -62,9 +63,9 @@ const Game: FC<Props> = ({
   const activePlayerMark = playerConfig[activePlayer];
 
   return (
-    <>
+    <div className={css["game-page"]}>
       {isGameOver ? (
-        <div>
+        <div className={css["game-stats"]}>
           {!!winner ? (
             <h1>
               Winner is: {gameData.players[winner]}({playerConfig[activePlayer]}
@@ -80,7 +81,7 @@ const Game: FC<Props> = ({
         </div>
       ) : (
         <>
-          <div>
+          <div className={css["game-stats"]}>
             <h2>You move next: {activePlayerName}</h2>
             <p>Your mark is: {activePlayerMark}</p>
           </div>
@@ -100,7 +101,7 @@ const Game: FC<Props> = ({
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 
