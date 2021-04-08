@@ -1,0 +1,32 @@
+@import "variables";
+
+.title {
+  margin-bottom: 5rem;
+  text-align: center;
+}
+.scoreboard {
+  margin: auto;
+  width: 80%;
+  border-collapse: collapse;
+
+  thead {
+    color: $color_dark_blue;
+    border-bottom: 1px solid $color_dark_blue;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  td,
+  th {
+    padding: 5px;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $color_light_grey;
+    }
+    tr:nth-child(odd) {
+      background: $color_light_blue;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=New+Tegomin&family=Roboto&display=swap");
 
 * {
   box-sizing: border-box;
@@ -8,10 +8,14 @@
 
 body {
   color: #222;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   height: 100vh;
+  width: 90%;
+  margin: 50px auto;
 }
 
-h1, h2, h3 {
-  font-family: 'New Tegomin', serif;
+h1,
+h2,
+h3 {
+  font-family: "New Tegomin", serif;
 }

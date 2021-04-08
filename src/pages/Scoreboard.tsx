@@ -28,14 +28,6 @@ const Scoreboard = () => {
         </thead>
         <tbody>
           <tr>
-            {/*<td>{scoreboard.name}</td>*/}
-            {/*<td>{scoreboard.name.numberOfWins}</td>*/}
-            <td>{winnerFromLocalStorage}</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            {/*<td>{scoreboard.name}</td>*/}
-            {/*<td>{scoreboard.name.numberOfWins}</td>*/}
             <td>{winnerFromLocalStorage}</td>
             <td>1</td>
           </tr>
