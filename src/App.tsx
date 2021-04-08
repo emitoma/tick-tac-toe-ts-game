@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Game from "./pages/Game";
 import StartScreen from "./pages/StartScreen";
 //
-import "./App.scss";
 import GameData from "./types/GameData";
+import Scoreboard from "./pages/Scoreboard";
 
 function App() {
   const [gameData, setGameData] = React.useState<GameData>({
@@ -20,6 +20,10 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/scoreboard">
+          <Scoreboard />
+        </Route>
+
         <Route path="/game">
           <Game
             gameData={gameData}
@@ -28,6 +32,7 @@ function App() {
             setIsGameStarted={setIsGameStarted}
           />
         </Route>
+
         <Route path="/">
           <StartScreen
             gameData={gameData}

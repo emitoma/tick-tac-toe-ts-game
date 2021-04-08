@@ -76,13 +76,13 @@ const StartScreen: FC<Props> = ({
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Player 1</label>
-          <input type="text" name="player1" id="name" onChange={handleChange} />
+          <input type="text" name="1" id="name" onChange={handleChange} />
         </div>
         <div>
           <label htmlFor="name2">Player 2</label>
           <input
             type="text"
-            name="player2"
+            name="2"
             id="name2"
             onChange={handleChange}
           />

@@ -1,9 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+//
 import Board from "../components/Board";
+//
 import GameData from "../types/GameData";
-import Player from "../types/Player";
-import { Redirect } from "react-router-dom";
 import { playerConfig } from "../playerConfig";
+import { generateMatrix } from "../utils/statusCalculator";
+import { pickPlayer } from "../utils/pickPlayer";
 
 interface Props {
   gameData: GameData;
@@ -18,20 +21,12 @@ const Game: FC<Props> = ({
   isGameStarted,
   setIsGameStarted,
 }) => {
-  const [activePlayer, setActivePlayer] = React.useState<number>();
-
-  const playerPicker = () => {
-    const randomNumber = Math.floor(Math.random() * 10);
-
-    if (randomNumber % 2 === 0) {
-      setActivePlayer(1);
-    } else {
-      setActivePlayer(2);
-    }
-  };
-  useEffect(() => {
-    playerPicker();
+  const [activePlayer, setActivePlayer] = React.useState<number>(pickPlayer);
+  const winningMatrix = React.useMemo(() => {
+    return generateMatrix(gameData.gameSize);
   }, []);
+  const [winner, setWinner] = React.useState<number | null>(null);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("activePlayer", JSON.stringify(activePlayer));
@@ -48,11 +43,16 @@ const Game: FC<Props> = ({
     }
   }, []);
 
+  const saveWinner = () => {
+    localStorage.setItem("winner", gameData.players[activePlayer]);
+  };
+  useEffect(() => saveWinner(), [winner]);
+
   if (!isGameStarted) {
     return <Redirect to="/" />;
   }
 
-  if (!activePlayer) {
+  if (!activePlayer || !winningMatrix) {
     return <h3>Loading...</h3>;
   }
 
@@ -61,21 +61,43 @@ const Game: FC<Props> = ({
 
   return (
     <>
-      <div>
-        <h2>You move first: {activePlayerName}</h2>
-        <p>Your mark is: {activePlayerMark}</p>
-      </div>
-      <Board
-        gameSize={gameData.gameSize}
-        activePlayer={activePlayer}
-        switchPlayer={() => {
-          if (activePlayer === 1) {
-            setActivePlayer(2);
-          } else {
-            setActivePlayer(1);
-          }
-        }}
-      />
+      {isGameOver ? (
+        <div>
+          {!!winner ? (
+            <h1>
+              Winner is: {gameData.players[winner]}({playerConfig[activePlayer]}
+              )
+            </h1>
+          ) : (
+            <h1>It's a draw!</h1>
+          )}
+
+          <Link to="/scoreboard">
+            <button type="button">Go to scoreboard</button>
+          </Link>
+        </div>
+      ) : (
+        <>
+          <div>
+            <h2>You move next: {activePlayerName}</h2>
+            <p>Your mark is: {activePlayerMark}</p>
+          </div>
+          <Board
+            gameData={gameData}
+            activePlayer={activePlayer}
+            switchPlayer={() => {
+              if (activePlayer === 1) {
+                setActivePlayer(2);
+              } else {
+                setActivePlayer(1);
+              }
+            }}
+            winningMatrix={winningMatrix}
+            setWinner={setWinner}
+            setIsGameOver={setIsGameOver}
+          />
+        </>
+      )}
     </>
   );
 };
