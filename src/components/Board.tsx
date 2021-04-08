@@ -41,8 +41,13 @@ const Board: FC<Props> = ({
 
     setBoarArray((board) => {
       const boardCopy = board.map((row) => [...row]);
+      const currentSquare = boardCopy[rowIndex][colIndex];
 
-      boardCopy[rowIndex][colIndex] = playerConfig[activePlayer];
+      if (currentSquare !== "") {
+        return boardCopy;
+      } else {
+        boardCopy[rowIndex][colIndex] = playerConfig[activePlayer];
+      }
 
       return boardCopy;
     });
