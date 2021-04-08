@@ -34,7 +34,7 @@ function App() {
           />
         </Route>
 
-        <Route path="/">
+        <Route path="/start">
           <StartScreen
             gameData={gameData}
             setGameData={setGameData}

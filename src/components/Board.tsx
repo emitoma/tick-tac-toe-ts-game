@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 //
 import Square from "./Square";
 //
@@ -29,6 +29,12 @@ const Board: FC<Props> = ({
   const [boardArray, setBoarArray] = React.useState<string[][]>(() =>
     generateBoard(gameData.gameSize)
   );
+  const [stepCounter, setStepCounter] = React.useState<{
+    [key: number]: number;
+  }>({
+    1: 0,
+    2: 0,
+  });
 
   const setSquare = (rowIndex: number, colIndex: number): void => {
     console.log(activePlayer);
@@ -40,7 +46,15 @@ const Board: FC<Props> = ({
 
       return boardCopy;
     });
+    setStepCounter((stepCounter) => ({
+      ...stepCounter,
+      [activePlayer]: stepCounter[activePlayer]++,
+    }));
   };
+
+  useEffect(() => {
+    localStorage.setItem("stepCounter", JSON.stringify(stepCounter));
+  }, [stepCounter]);
 
   useEffect(() => {
     console.log(winningMatrix, boardArray);

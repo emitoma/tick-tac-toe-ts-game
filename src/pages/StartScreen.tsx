@@ -81,7 +81,7 @@ const StartScreen: FC<Props> = ({
   }
 
   return (
-    <main>
+    <main className={css["starter-page"]}>
       <form className={css["start-form"]} onSubmit={handleSubmit}>
         {errorMessage && <h3 className={css["error"]}>{errorMessage}</h3>}
         <div className={css["start-form-input"]}>

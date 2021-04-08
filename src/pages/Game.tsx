@@ -47,12 +47,15 @@ const Game: FC<Props> = ({
   }, []);
 
   const saveWinner = () => {
-    localStorage.setItem("winner", gameData.players[activePlayer]);
+    localStorage.setItem(
+      "winner",
+      `${gameData.players[activePlayer]}_${activePlayer}`
+    );
   };
   useEffect(() => saveWinner(), [winner]);
 
   if (!isGameStarted) {
-    return <Redirect to="/" />;
+    return <Redirect to="/start" />;
   }
 
   if (!activePlayer || !winningMatrix) {
